@@ -5,11 +5,11 @@ import DragDropMobileDesktop from "@/components/DragDropMobileDesktop";
 const HomePage = () => {
   return (
     <>
-      <div className="max-w-sm mx-auto">
+      <div className="mx-auto">
         <h1>Tâches</h1>
         <br />
 
-        <div className="flex flex-col gap-3">
+        <div className="flex gap-3 flex-col md:flex-row lg:flex-row">
           <DragDropMobileDesktop />
         </div>
       </div>

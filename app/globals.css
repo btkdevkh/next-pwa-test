@@ -19,3 +19,17 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Empêche la sélection de texte partout */
+/* * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+} */
+
+/* Désactive le menu contextuel sur un appui long */
+/* body {
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+} */
