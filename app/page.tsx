@@ -10,7 +10,7 @@ const HomePage = () => {
 
         <div className="w-full">
           <div className="flex flex-col w-full">
-            <div className="flex justify-around gap-1 mb-3">
+            <div className="flex justify-around gap-1">
               {["À Faire", "En Cours", "Achevé"].map((title) => (
                 <div
                   className={`${
@@ -28,6 +28,7 @@ const HomePage = () => {
                 </div>
               ))}
             </div>
+            <br />
 
             {data.map((datums, index) => (
               <DragDropHorizontal key={index} data={datums} />
@@ -45,7 +46,7 @@ const data: Category[][] = [
   [
     {
       id: 1,
-      data: [{ id: 1, text: "Faire les courses", done: false }],
+      data: [{ id: 1, text: "Les courses", done: false }],
     },
     {
       id: 2,

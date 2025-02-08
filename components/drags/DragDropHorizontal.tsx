@@ -76,10 +76,10 @@ const DragDropHorizontal = ({ data }: DragDropHorizontalProps) => {
             {item.data.map((datum) => (
               <motion.div
                 key={datum.id}
-                className={`p-3 mb-2 text-center shadow-md cursor-pointer relative transition-colors
+                className={`px-0 py-2 mb-2 text-center shadow-md cursor-pointer relative transition-colors
               ${
                 draggedItemRef.current === index
-                  ? "bg-slate-700 text-white"
+                  ? "bg-slate-700"
                   : "bg-slate-800"
               }`}
                 // style={{ userSelect: "none" }}
@@ -98,7 +98,7 @@ const DragDropHorizontal = ({ data }: DragDropHorizontalProps) => {
                   damping: 50,
                 }}
               >
-                {datum.text}
+                <span>{datum.text}</span>
               </motion.div>
             ))}
           </div>
