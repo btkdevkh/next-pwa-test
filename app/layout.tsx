@@ -2,12 +2,12 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "@/components/Header";
+import Header from "@/components/shared/Header";
 
-const APP_NAME = "Task";
-const APP_DEFAULT_TITLE = "Task";
+const APP_NAME = "Next PWA Test";
+const APP_DEFAULT_TITLE = "Next PWA Test";
 const APP_TITLE_TEMPLATE = "%s - PWA App";
-const APP_DESCRIPTION = "Track Daily Expenses";
+const APP_DESCRIPTION = "Testing Functionality in Next";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
