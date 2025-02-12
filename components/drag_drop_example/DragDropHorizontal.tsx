@@ -68,6 +68,8 @@ const DragDropHorizontal = ({ data }: DragDropHorizontalProps) => {
     startX.current = null;
   };
 
+  console.log("items :", items);
+
   return (
     <AnimatePresence>
       <div className="grid grid-cols-3 gap-1 w-full overflow-hidden">
