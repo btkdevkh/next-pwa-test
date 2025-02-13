@@ -1,3 +1,6 @@
+import MessageClient from "@/components/examples/use_hook_example/message/MessageClient";
+import { Suspense } from "react";
+
 const HomePage = () => {
   return (
     <>
@@ -7,6 +10,7 @@ const HomePage = () => {
         <br />
 
         {/* Testing component */}
+        <MessageClient />
       </div>
     </>
   );
