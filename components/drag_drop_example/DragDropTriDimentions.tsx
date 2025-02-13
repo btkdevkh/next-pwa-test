@@ -3,7 +3,7 @@
 import { Category } from "@/models/Category";
 import DragDropHorizontal from "@/components/drag_drop_example/DragDropHorizontal";
 
-const TriDimentionsDragDrop = () => {
+const DragDropTriDimentions = () => {
   return (
     <div className="w-full">
       <div className="flex flex-col w-full">
@@ -36,7 +36,7 @@ const TriDimentionsDragDrop = () => {
   );
 };
 
-export default TriDimentionsDragDrop;
+export default DragDropTriDimentions;
 
 const data: Category[][] = [
   [

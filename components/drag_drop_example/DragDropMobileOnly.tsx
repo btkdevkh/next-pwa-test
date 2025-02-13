@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const DnDMobileOnly = () => {
+const DragDropMobileOnly = () => {
   const [items, setItems] = useState([
     "KFC",
     "Burger King",
@@ -77,4 +77,4 @@ const DnDMobileOnly = () => {
   );
 };
 
-export default DnDMobileOnly;
+export default DragDropMobileOnly;
