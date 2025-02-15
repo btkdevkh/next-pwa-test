@@ -2,7 +2,7 @@
 
 import { Suspense, use, useState } from "react";
 import MessageOutput from "./MessageOutput";
-import ButtonClick from "@/components/examples/use_hook_example/message/ButtonClick";
+import ButtonClick from "@/components/examples/react_news/react_use_hook_example/message/ButtonClick";
 
 // Asyn funcs
 const fetchMessage = (): Promise<string> => {
