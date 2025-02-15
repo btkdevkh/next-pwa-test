@@ -1,0 +1,12 @@
+✅ Suspense is great for handling initial data fetching if your setup supports it (useSuspenseQuery, React Server Components, or a Suspense-wrapped fetch).
+✅ Suspense works great in a Page component because React can wait before showing the page.
+
+❌ Suspense is bad for button clicks because it wipes out UI and waits until the data is ready.
+❌ It’s not great if your fetch takes too long and users need immediate feedback.
+For very slow APIs, consider progress indicators instead of just a blank Suspense fallback.
+
+e.g: (generally in server "page" component)
+
+<Suspense fallback={<Loading />}>
+  <TodosClient />
+</Suspense>

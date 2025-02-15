@@ -1,3 +1,9 @@
+import { Suspense } from "react";
+import TodosClient from "@/components/examples/suspense_example/TodosClient";
+
+// Url "/"
+// This is a server component,
+// it render a client/server component,
 const HomePage = () => {
   return (
     <>
