@@ -1,5 +1,4 @@
-import { Suspense } from "react";
-import TodosClient from "@/components/examples/suspense_example/TodosClient";
+import ArrayNotNull from "@/components/examples/array_not_null/ArrayNotNull";
 
 // Url "/"
 // This is a server component,
@@ -13,6 +12,7 @@ const HomePage = () => {
         <br />
 
         {/* Testing component */}
+        <ArrayNotNull />
       </div>
     </>
   );
