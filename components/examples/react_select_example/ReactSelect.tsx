@@ -1,69 +1,101 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Dispatch, SetStateAction, useState } from "react";
-import {
-  Indicator,
-  indicatorOptions,
-  OptionTypeIndicator,
-} from "../../../data/mockedData";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Indicator, OptionTypeIndicator } from "../../../data/mockedData";
 import { FaTrash } from "react-icons/fa";
+import { ActionMeta } from "react-select";
+import { toast } from "react-toastify";
 
 const SingleSelect = dynamic(() => import("react-select"), { ssr: false });
 
 type ReactSelectProps = {
   index: number;
   count: number;
-  indicator: Indicator | null;
   indicatorColor: string;
   parentOptions: OptionTypeIndicator[] | null;
-  setParentOptions: Dispatch<SetStateAction<OptionTypeIndicator[] | null>>;
+  indicators: Indicator[] | null;
+  indicatorOptions: OptionTypeIndicator[];
   setIndicators: Dispatch<SetStateAction<Indicator[]>>;
-  handleRemoveIndicator: (index: number, id?: string | number | null) => void;
-  formatIndicatorData: Indicator[];
+  handleRemoveIndicator: (index: number) => void;
 };
 
 const ReactSelect = ({
   index,
   count,
-  indicator,
   indicatorColor,
   parentOptions,
+  indicators,
   setIndicators,
-  setParentOptions,
+  indicatorOptions,
   handleRemoveIndicator,
-  formatIndicatorData,
 }: ReactSelectProps) => {
   const [color, setColor] = useState<string>(indicatorColor ?? "");
   const [selectedOption, setSelectedOption] =
     useState<OptionTypeIndicator | null>(null);
-  const [_, setOptions] = useState<OptionTypeIndicator[] | null>(
-    indicatorOptions
-  );
 
-  const handleSelectedOption = (option: OptionTypeIndicator | null) => {
+  // Set selected option when indicators change
+  useEffect(() => {
+    if (indicators && indicators[index]) {
+      const indicator = indicators[index];
+      const option =
+        indicatorOptions.find((opt) => opt.id === indicator.id) || null;
+      setSelectedOption(option);
+    } else {
+      setSelectedOption(null);
+    }
+  }, [indicators, index, indicatorOptions]);
+
+  // Update color when it changes
+  useEffect(() => {
+    if (color) {
+      setIndicators((prev) => {
+        const newIndicators = [...prev];
+        newIndicators[index] = {
+          ...newIndicators[index],
+          color: color,
+        };
+        return newIndicators;
+      });
+    }
+  }, [color, index, setIndicators]);
+
+  // Handle selected option
+  const handleSelectedOption = (
+    newValue: unknown,
+    actionMeta: ActionMeta<unknown>
+  ) => {
+    if (count > 3) return;
+
+    const option = newValue as OptionTypeIndicator | null;
+
     if (option) {
-      // Update the selected option by child select
+      // Check for duplicate option
+      const isDuplicate = indicators?.some(
+        (indicator) => indicator.id === option.id
+      );
+      if (isDuplicate) {
+        toast.error("This indicator is already selected.");
+        return;
+      }
+
       setSelectedOption(option);
 
-      // Update child option individually
-      setOptions((prevs) =>
-        (prevs as OptionTypeIndicator[])?.filter(
-          (prev) => prev.id !== option.id
-        )
-      );
+      const newIndicator: Indicator = {
+        id: option.id,
+        id_axe: option.id_axe ?? null,
+        nom: option.label ?? "",
+        color: color,
+      };
 
-      // Update parent options
-      setParentOptions((prevs) =>
-        (prevs as OptionTypeIndicator[])?.filter(
-          (prev) => prev.id !== option.id
-        )
-      );
+      // Update indicators with new indicator when selected change
+      setIndicators((prev) => {
+        const newIndicators = [...prev];
+        newIndicators[index] = newIndicator;
+        return newIndicators;
+      });
     }
   };
-
-  console.log("color :", color);
-  console.log("selectedOption :", selectedOption);
 
   return (
     <div className="flex items-center gap-3">
@@ -77,13 +109,11 @@ const ReactSelect = ({
         <SingleSelect
           options={parentOptions ?? []}
           value={selectedOption}
-          onChange={(option) =>
-            handleSelectedOption(option as OptionTypeIndicator)
-          }
+          onChange={handleSelectedOption}
         />
       </div>
 
-      <button onClick={() => handleRemoveIndicator(index, indicator?.id)}>
+      <button onClick={() => handleRemoveIndicator(index)}>
         <FaTrash size={20} color="red" />
       </button>
     </div>

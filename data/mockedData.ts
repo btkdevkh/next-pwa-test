@@ -12,6 +12,7 @@ export type OptionTypeIndicator = {
   label: string | null;
   value: string | null;
   color?: string | null;
+  id_axe: number | null;
 };
 
 export enum ColorEnum {
@@ -53,6 +54,8 @@ export const indicatorOptions: OptionTypeIndicator[] = indicatorMockedData.map(
       id: indicatorMockedDatum.id,
       label: indicatorMockedDatum.nom,
       value: indicatorMockedDatum.nom,
+      color: null,
+      id_axe: indicatorMockedDatum.id_axe,
     };
   }
 );

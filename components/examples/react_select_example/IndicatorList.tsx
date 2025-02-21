@@ -7,13 +7,12 @@ import {
   Indicator,
   indicatorDBData,
   indicatorMockedData,
-  indicatorOptions,
   OptionTypeIndicator,
 } from "../../../data/mockedData";
 import { FaPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const IndicatorList = () => {
-  // Format the main indicator data
   const formatIndicatorData = indicatorMockedData
     .map((indicatorMockedDatum) => {
       for (const indicatorDBDatum of indicatorDBData) {
@@ -35,16 +34,20 @@ const IndicatorList = () => {
     })
     .filter((f) => f != undefined);
 
-  // By default count = 1
+  const indicatorOptions: OptionTypeIndicator[] = formatIndicatorData.map(
+    (indicatorMockedDatum) => {
+      return {
+        id: indicatorMockedDatum.id,
+        label: indicatorMockedDatum.nom,
+        value: indicatorMockedDatum.nom,
+        color: null,
+        id_axe: indicatorMockedDatum.id_axe,
+      };
+    }
+  );
+
   const [count, setCount] = useState(1);
-
-  // By default, set the first indicator
-  const [indicators, setIndicators] = useState<Indicator[]>([
-    formatIndicatorData[0],
-  ]);
-
-  // Parent select options to track the option state when
-  // the child select has chosen the selected option
+  const [indicators, setIndicators] = useState<Indicator[]>([]);
   const [parentOptions, setParentOptions] = useState<
     OptionTypeIndicator[] | null
   >(indicatorOptions);
@@ -53,61 +56,47 @@ const IndicatorList = () => {
   const handleAddIndicator = () => {
     setCount((prev) => prev + 1);
 
-    if (count >= formatIndicatorData.length) {
-      // Update count
-      setCount(formatIndicatorData.length);
+    if (count > 3) {
+      setCount(4);
+      toast.error("You can't add more than 3 indicators.");
       return;
-    }
-
-    if (indicators.length > 0) {
-      // Update indicators
-      setIndicators((prevs) => {
-        return [...(prevs as Indicator[]), formatIndicatorData[count]];
-      });
     }
   };
 
   // Remove indicator
-  const handleRemoveIndicator = (
-    index: number,
-    id?: string | number | null
-  ) => {
-    const found = formatIndicatorData.find(
-      (indicatorMockedDatum) => indicatorMockedDatum.id === id
-    );
+  const handleRemoveIndicator = (index: number) => {
+    setCount((prev) => prev - 1);
 
-    if (found) {
-      const index = formatIndicatorData.indexOf(found);
-
-      // Update count
-      setCount(index);
-
-      // Update parent options
-      setParentOptions((prevs) => [
-        ...(prevs as OptionTypeIndicator[]),
-        indicatorOptions[index],
-      ]);
+    if (count === 1) {
+      setCount(1);
+      return;
     }
 
-    // Update indicators
-    setIndicators((prevs) => {
-      return [...(prevs as Indicator[]).filter((prev) => prev.id !== id)];
+    if (indicators.length === 0) {
+      return;
+    }
+
+    setIndicators((prev) => {
+      const newIndicators = [...prev];
+      newIndicators.splice(index, 1);
+      return newIndicators;
     });
   };
 
+  // Max 3 indicators
   useEffect(() => {
-    if (indicators.length === 0) {
-      setCount(1);
+    if (count > 3) {
+      toast.error("You can't add more than 3 indicators.");
     }
-  }, [indicators]);
+  }, [count]);
 
-  console.log("indicatorDBData :", indicatorDBData);
-  console.log("indicatorMockedData :", indicatorMockedData);
-  console.log("formatIndicatorData :", formatIndicatorData);
-  console.log("-----------------------------------");
-  console.log("count :", count);
+  // console.log("indicatorDBData :", indicatorDBData);
+  // console.log("indicatorMockedData :", indicatorMockedData);
+  // console.log("formatIndicatorData :", formatIndicatorData);
+  // console.log("count :", count);
+  // console.log("parentOptions :", parentOptions);
+  console.log("indicatorOptions :", indicatorOptions);
   console.log("indicators :", indicators);
-  console.log("parentOptions :", parentOptions);
 
   return (
     <div className="flex flex-col gap-5 items-center">
@@ -116,28 +105,25 @@ const IndicatorList = () => {
       </button>
 
       <div className="flex flex-col gap-1 w-full">
-        {indicators &&
-          indicators.length > 0 &&
-          indicators.map((indicator, index) => {
-            const colorKey = `COLOR_${count}` as keyof typeof ColorEnum;
-            const indicatorColor = ColorEnum[colorKey];
+        {Array.from({ length: count }).map((_, index) => {
+          const colorKey = `COLOR_${index + 1}` as keyof typeof ColorEnum;
+          const indicatorColor = ColorEnum[colorKey];
 
-            return (
-              <div key={indicator.id}>
-                <ReactSelect
-                  index={index}
-                  count={count}
-                  indicator={indicator}
-                  indicatorColor={indicatorColor}
-                  parentOptions={parentOptions}
-                  setParentOptions={setParentOptions}
-                  setIndicators={setIndicators}
-                  handleRemoveIndicator={handleRemoveIndicator}
-                  formatIndicatorData={formatIndicatorData}
-                />
-              </div>
-            );
-          })}
+          return (
+            <div key={index}>
+              <ReactSelect
+                index={index}
+                count={count}
+                indicatorColor={indicatorColor}
+                parentOptions={parentOptions}
+                indicatorOptions={indicatorOptions}
+                indicators={indicators}
+                setIndicators={setIndicators}
+                handleRemoveIndicator={handleRemoveIndicator}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
