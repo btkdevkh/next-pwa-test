@@ -1,7 +1,8 @@
-import NivoResponsiveLine from "@/components/examples/nivo_example/NivoResponsiveLine";
-
 // Url "/"
 // This is a server component,
+
+import XLSXExample from "@/components/examples/xlsx/XLSXExample";
+
 // it render a client/server component,
 const HomePage = () => {
   return (
@@ -12,7 +13,7 @@ const HomePage = () => {
         <br />
 
         {/* Testing component */}
-        <NivoResponsiveLine />
+        <XLSXExample />
       </div>
     </>
   );
