@@ -4,8 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "@/components/shared/Header";
 
-const APP_NAME = "Next PWA Test";
-const APP_DEFAULT_TITLE = "Next PWA Test";
+const APP_NAME = "Next Test";
+const APP_DEFAULT_TITLE = "Next Test";
 const APP_TITLE_TEMPLATE = "%s - PWA App";
 const APP_DESCRIPTION = "Testing Functionality in Next";
 
@@ -20,7 +20,6 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "default",
     title: APP_DEFAULT_TITLE,
-    // startUpImage: [],
   },
   formatDetection: {
     telephone: false,

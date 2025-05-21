@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -13,13 +13,17 @@
     "@nivo/line": "^0.88.0",
     "@nivo/tooltip": "^0.88.0",
     "@serwist/next": "^9.0.11",
+    "@tanstack/react-query": "^5.76.1",
     "framer-motion": "^12.4.0",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
+    "react-select": "^5.10.0",
     "react-toastify": "^11.0.3",
-    "recharts": "^2.15.1"
+    "recharts": "^2.15.1",
+    "uuid": "^11.1.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^20",

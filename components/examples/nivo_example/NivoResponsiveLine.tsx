@@ -1,18 +1,29 @@
 "use client";
 
 import { ResponsiveLine } from "@nivo/line";
+import generateYAxisTicks from "./generateYAxisTicks";
 
 const NivoResponsiveLine = () => {
+  // Get y number values from data_line
+  const yValues = data_line.map((data) => data.data.map((d) => d.y));
+  // Get the min and max values from yValues
+  const yMin = Math.min(...yValues.flat());
+  const yMax = Math.max(...yValues.flat());
+
+  // Generate Y-Axis ticks
+  const yAxisTicks = generateYAxisTicks(yMin, yMax);
+  console.log(yAxisTicks);
+
   return (
-    <div className="text-black h-[25rem]">
+    <div className="text-black h-screen">
       <ResponsiveLine
         data={data_line}
         margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
         xScale={{ type: "point" }}
         yScale={{
           type: "linear",
-          min: "auto",
-          max: "auto",
+          min: yAxisTicks[0],
+          max: yAxisTicks[yAxisTicks.length - 1],
           stacked: true,
           reverse: false,
         }}
@@ -32,10 +43,11 @@ const NivoResponsiveLine = () => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "count",
+          legend: "%",
           legendOffset: -40,
           legendPosition: "middle",
           truncateTickAt: 0,
+          tickValues: yAxisTicks,
         }}
         pointSize={10}
         pointColor={{ theme: "background" }}

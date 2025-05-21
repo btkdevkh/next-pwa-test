@@ -14,7 +14,7 @@ const Header = async () => {
               alt="balance logo"
               priority
             />
-            <h2 className="text-2xl">TEST</h2>
+            <h2 className="text-2xl text-white">TEST</h2>
           </Link>
         </div>
       </div>
