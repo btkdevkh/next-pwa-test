@@ -1,8 +1,9 @@
+// import XLSXExample from "@/components/examples/xlsx/XLSXExample";
+import ReactQuery from "@/components/examples/react_query/ReactQuery";
+import ReactQueryProvider from "@/components/examples/react_query/ReactQueryProvider";
+
 // Url "/"
 // This is a server component,
-
-import XLSXExample from "@/components/examples/xlsx/XLSXExample";
-
 // it render a client/server component,
 const HomePage = () => {
   return (
@@ -13,7 +14,10 @@ const HomePage = () => {
         <br />
 
         {/* Testing component */}
-        <XLSXExample />
+        {/* <XLSXExample /> */}
+        <ReactQueryProvider>
+          <ReactQuery />
+        </ReactQueryProvider>
       </div>
     </>
   );
